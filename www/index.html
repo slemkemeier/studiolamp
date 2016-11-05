@@ -14,62 +14,91 @@
         <script type="text/javascript" src="cordova.js"></script>
 
 <div id="deviceListScreen">
-<h1>Devices</h1>
+    <h1>Devices</h1>
 
-<ul id="deviceList">
-  <li>Searching...</li>
-</ul>
+    <ul id="deviceList">
+        <li>Searching...</li>
+    </ul>
 
-<div>
-  <button id="refreshButton">Refresh</button>
+    <div>
+        <button id="refreshButton">Refresh</button>
+    </div>
 </div>
 
-</div>
 
 
 
+<div id="mainControl">
+    <h1>Main Page</h1>
 
-<div id="lampControl">
-
-  <button id="onButton">On</button>
-  <br />
-  <button id="offButton">Off</button>
-  <br />
-  <button id="disconnectButton">Disconnect</button>
-  <br />
-  <br />
-  <label>
-      Red
-      <br>
-      <input id="redSlider" type="range" min="0" max="255"/>
-  </label>
-  <br>
-  <label>
-      Green
-      <br>
-      <input id="greenSlider" type="range" min="0" max="255"/>
-  </label>
-  <br>
-  <label>
-      Blue
-      <br>
-      <input id="blueSlider" type="range" min="0" max="255"/>
-  </label>
-  <br>
-  <br>
-  <br>
+    <button id="onButton">On</button>
+    <br />
+    <button id="offButton">Off</button>
+    <br />
+    <button id="disconnectButton">Disconnect</button>
+    <br />
+    <br />
+    <br />
+    <br />
+    <button id="colorButton">Set Color</button>
+    <button id="timerButton">Set Timer</button>
+    <button id="setTimerButton">View Timers</button>
+  <!--
   <label>
       Counter
       <br>
       <div id="counter">(0)</div>
-  </label>
+  </label> -->
 
 
 
 </div>
 
 
+<div id="colorControl">
+    <br>
+    <br>
+    <h1>Color Control</h1>
+    <br>
+    <label>
+        Red
+        <br>
+        <input id="redSlider" type="range" min="0" max="255"/>
+        <p id="red_value">0</p>
+    </label>
+    <br>
+    <label>
+        Green
+        <br>
+        <input id="greenSlider" type="range" min="0" max="255"/>
+        <p id="green_value">0</p>
+    </label>
+    <br>
+    <label>
+        Blue
+        <br>
+        <input id="blueSlider" type="range" min="0" max="255"/>
+        <p id="blue_value">0</p>
+    </label>
+    <br>
+    <button id="setColor">Set Now!</button>
+    <button id="fadeToColor">Fade to Color</button>
 
+
+    <button id="colorToMain">Return to Main</button>
+</div>
+
+<div id="timerControl">
+    <h1>Timer Control</h1>
+    <button id="timerToMain">Return to Main</button>
+
+</div>
+
+<div id="timerView">
+    <h1>Timer View</h1>
+    <button id="timerViewToMain">Return to Main</button>
+
+</div>
 
 <div id="statusDiv"></div>
 

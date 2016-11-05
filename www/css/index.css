@@ -13,9 +13,11 @@
     text-align: center;
 }
 
-#lampControl {
+#mainControl {
     margin-top: 40px; /* iOS */
     text-align: center;
+
+
 }
 
 #connectionScreen {

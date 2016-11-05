@@ -54,7 +54,10 @@ var app = {
         // Do initial screen configuration.
         // This can be done here because this file is loaded from the HTML file.
         deviceListScreen.hidden = false;
-        lampControl.hidden = true;
+        mainControl.hidden = true;
+        colorControl.hidden = true;
+        timerControl.hidden=true;
+        timerView.hidden=true;
         // Disable the refresh button until the app is completely ready
         refreshButton.disabled = true;
 
@@ -85,11 +88,26 @@ var app = {
         onButton.ontouchstart = app.uiOnLampOn;
 	    offButton.ontouchstart = app.uiOnLampOff;
         disconnectButton.ontouchstart = app.uiOnDisconnect;
+        colorButton.ontouchstart = app.uiColorPage;
+        timerButton.ontouchstart = app.uiTimerPage;
+        setTimerButton.ontouchstart = app.uiViewTimerPage;
 
-        // TODO: Configure the new controls so they will "call" a function when an event happens
+
+        // Color Page
         redSlider.ontouchmove = app.uiDisplayRedValue;
         greenSlider.ontouchmove = app.uiDisplayGreenValue;
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
+
+        setColor.ontouchstart = app.uiSetColor;
+
+        colorToMain.ontouchstart = app.uiShowControlScreen;
+
+        // Timer Page
+        timerToMain.ontouchstart = app.uiShowControlScreen;
+
+        // View Timers Page
+        timerViewToMain.ontouchstart = app.uiShowControlScreen;
+
 
         // Call the uiOnScan function to automatically start scanning
         app.uiOnScan();
@@ -100,17 +118,38 @@ var app = {
 // **** Callbacks from the user interface.  These respond to UI events ****
     // TODO: Add Functions to handle the callbacks (events) on the new controls
     // (Pay close attention to the syntax of functions)
+    uiColorPage: function() {
+        mainControl.hidden = true;
+        colorControl.hidden = false;
+        deviceListScreen.hidden = true;
+        timerControl.hidden=true;
+        timerView.hidden=true;
+
+    },
+    uiTimerPage: function() {
+        mainControl.hidden = true;
+        colorControl.hidden = true;
+        deviceListScreen.hidden = true;
+        timerControl.hidden=false;
+        timerView.hidden=true;
+    },
+
+    uiViewTimerPage: function() {
+        mainControl.hidden = true;
+        colorControl.hidden = true;
+        deviceListScreen.hidden = true;
+        timerControl.hidden=true;
+        timerView.hidden=false;
+    },
+
     uiDisplayRedValue: function() {
-        console.log(document.getElementById("redSlider").value);
-        app.uiSetColor();
+        document.getElementById("red_value").innerHTML=document.getElementById("redSlider").value;
     },
     uiDisplayGreenValue: function() {
-        console.log(document.getElementById("greenSlider").value);
-        app.uiSetColor();
+        document.getElementById("green_value").innerHTML=document.getElementById("greenSlider").value;
     },
     uiDisplayBlueValue: function() {
-        console.log(document.getElementById("blueSlider").value);
-        app.uiSetColor();
+        document.getElementById("blue_value").innerHTML=document.getElementById("blueSlider").value;
     },
 
     uiSetColor: function() {
@@ -267,15 +306,21 @@ var app = {
     },
 
     uiShowDeviceListScreen: function() {
-        lampControl.hidden = true;
+        mainControl.hidden = true;
+        colorControl.hidden = true;
         deviceListScreen.hidden = false;
+        timerControl.hidden=true;
+        timerView.hidden=true;
         app.uiHideProgressIndicator();
         statusDiv.innerHTML = "";
     },
 
     uiShowControlScreen: function() {
-        lampControl.hidden = false;
+        mainControl.hidden = false;
+        colorControl.hidden = true;
         deviceListScreen.hidden = true;
+        timerControl.hidden=true;
+        timerView.hidden=true;
         app.uiHideProgressIndicator();
         statusDiv.innerHTML = "";
     },
