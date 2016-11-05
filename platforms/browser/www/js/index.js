@@ -99,6 +99,7 @@ var app = {
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
 
         setColor.ontouchstart = app.uiSetColor;
+        fadeToColor.ontouchstart = app.uiFadeColor;
 
         colorToMain.ontouchstart = app.uiShowControlScreen;
 
@@ -106,6 +107,8 @@ var app = {
         timerToMain.ontouchstart = app.uiShowControlScreen;
 
         // View Timers Page
+        //startOnTimer.ontouchstart = ;
+        //startOffTimer.ontouchstart = ;
         timerViewToMain.ontouchstart = app.uiShowControlScreen;
 
 
@@ -153,7 +156,6 @@ var app = {
     },
 
     uiSetColor: function() {
-        console.log("setting color...")
         var data = new Uint8Array(3);
         data[0] = document.getElementById("redSlider").value;
         data[1] = document.getElementById("greenSlider").value;
@@ -161,6 +163,11 @@ var app = {
         app.writeData(data);
     },
 
+    uiFadeColor: function() {
+        console.log("fading");
+        //Send array using app.writeData
+        //Jimmy - don't know tag to send, need hardware file
+    },
     // Start scanning (also called at startup)
     uiOnScan: function() {
         console.log("uiOnScan");
