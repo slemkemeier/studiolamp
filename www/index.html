@@ -64,21 +64,21 @@
         Red
         <br>
         <input id="redSlider" type="range" min="0" max="255"/>
-        <p id="red_value">0</p>
+        <label id="red_value">255</label>
     </label>
     <br>
     <label>
         Green
         <br>
         <input id="greenSlider" type="range" min="0" max="255"/>
-        <p id="green_value">0</p>
+        <label id="green_value">0</label>
     </label>
     <br>
     <label>
         Blue
         <br>
         <input id="blueSlider" type="range" min="0" max="255"/>
-        <p id="blue_value">0</p>
+        <label id="blue_value">0</label>
     </label>
     <br>
     <button id="setColor">Set Now!</button>
@@ -90,12 +90,41 @@
 
 <div id="timerControl">
     <h1>Timer Control</h1>
+
+    <form>
+        <label>
+            ON:
+            <input type="text" value="0" name="on_seconds">seconds
+        </label>
+        <br>
+        <br>
+        <label>
+            OFF:
+            <input type="text" value="0" name="off_seconds">seconds
+        </label>
+        <br>
+        <br>
+        <label>
+            FADE:
+            <input type="text" value="0" name="fade_seconds">seconds
+        </label>
+        <input type="submit">
+
+    </form>
+
+
     <button id="timerToMain">Return to Main</button>
 
 </div>
 
 <div id="timerView">
     <h1>Timer View</h1>
+    ON: <label id=on_amount>0</label>
+    <br>
+    OFF: <label id=off_amount>0</label>
+    <br>
+    FADE: <label id=fade_amount>0</label>
+
     <button id="timerViewToMain">Return to Main</button>
 
 </div>
