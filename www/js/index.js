@@ -170,8 +170,8 @@ var app = {
 
     uiOnLampOn: function() {
         console.log("uiOnLampOn");
-                var data = new Uint8Array(1);
-        ble.writeWithResponse(5);
+        var data = new Uint8Array(1);
+        //ble.writeWithResponse(5);
         data[0] = 0x1;
         app.writeData(data);
 
@@ -234,15 +234,15 @@ var app = {
         app.uiShowControlScreen();
         app.uiSetStatus("Connected");
         // TODO: When connected you can start notifications
-        ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.success);
+        //ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.success);
 
     },
     // TODO: Create a function to call everytime the notification is "successful"
-    success: function() {
-        document.getElementById("counter").textContent = String("(" + counter + ")");
-        counter += 1;
-
-    },
+    // success: function() {
+    //     document.getElementById("counter").textContent = String("(" + counter + ")");
+    //     counter += 1;
+    //
+    // },
 
     bleOnDisconnect: function(reason) {
         console.log("bleOnDisconnect");
