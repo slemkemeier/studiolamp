@@ -79,7 +79,7 @@ var app = {
         redSlider.defaultValue = 255;
         greenSlider.defaultValue = 0;
         blueSlider.defaultValue = 0;
-
+        
         // Button/Touch actions weren't setup in initialize()
         // because they will trigger Cordova specific actions
         refreshButton.ontouchstart = app.uiOnScan;
@@ -97,6 +97,8 @@ var app = {
         redSlider.ontouchmove = app.uiDisplayRedValue;
         greenSlider.ontouchmove = app.uiDisplayGreenValue;
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
+        
+       
 
         setColor.ontouchstart = app.uiSetColor;
         fadeToColor.ontouchstart = app.uiFadeColor;
@@ -165,9 +167,15 @@ var app = {
 
     uiFadeColor: function() {
         console.log("fading");
-        //Send array using app.writeData
-        //Jimmy - don't know tag to send, need hardware file
+        
+        var data = new Uint8Array(2);
+        //ble.writeWithResponse(5);
+        data[0] = 0x7;
+        data[1] = document.getElementById("fade_value").value
+        app.writeData(data);
+       
     },
+
     // Start scanning (also called at startup)
     uiOnScan: function() {
         console.log("uiOnScan");
