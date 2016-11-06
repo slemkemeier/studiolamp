@@ -288,15 +288,9 @@ var app = {
         app.uiShowControlScreen();
         app.uiSetStatus("Connected");
         // TODO: When connected you can start notifications
-        //ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.success);
+        ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.readData);
 
     },
-    // TODO: Create a function to call everytime the notification is "successful"
-    // success: function() {
-    //     document.getElementById("counter").textContent = String("(" + counter + ")");
-    //     counter += 1;
-    //
-    // },
 
     bleOnDisconnect: function(reason) {
         console.log("bleOnDisconnect");
@@ -355,12 +349,23 @@ var app = {
         var success = function() {
             console.log("Write success");
         };
-
+        
         var failure = function() {
             alert("Failed writing data");
         };
         ble.writeWithoutResponse(app.connectedPeripheral.id, SERVICE_UUID, WRITE_UUID, data.buffer, success, failure);
     },
+
+    readData: function(data) {
+        console.log("Read");
+
+        if (data[0] == 5) {
+            document.getElementById("on_amount").innerHTML=data[1];
+        }
+        else if (data[0] == 6) {
+            document.getElementById("off_amount").innerHTML=data[1];
+        }
+    }
 };
 
 // When this code is loaded the app.initialize() function is called
