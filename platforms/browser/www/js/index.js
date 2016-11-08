@@ -76,22 +76,6 @@ var app = {
         // Cordova is now ready --- do remaining Cordova setup.
         console.log("onDeviceReady");
 
-        red = 0;
-        green = 0;
-        blue = 0;
-
-        document.getElementById("red_value_main").innerHTML=red;
-        document.getElementById("green_value_main").innerHTML=green;
-        document.getElementById("blue_value_main").innerHTML=blue;
-
-        redSlider.defaultValue = red;
-        greenSlider.defaultValue = green;
-        blueSlider.defaultValue = blue;
-
-        document.getElementById("red_value").innerHTML=red;
-        document.getElementById("green_value").innerHTML=green;
-        document.getElementById("blue_value").innerHTML=blue;
-
         // Button/Touch actions weren't setup in initialize()
         // because they will trigger Cordova specific actions
         refreshButton.ontouchstart = app.uiOnScan;
@@ -106,6 +90,9 @@ var app = {
 
 
         // Color Page
+        redSlider.defaultValue = 255;
+        greenSlider.defaultValue = 0;
+        blueSlider.defaultValue = 0;
         redSlider.ontouchmove = app.uiDisplayRedValue;
         greenSlider.ontouchmove = app.uiDisplayGreenValue;
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
@@ -237,23 +224,19 @@ var app = {
     uiOnLampOn: function() {
         console.log("uiOnLampOn");
 
+        red = document.getElementById("redSlider").value;
+        green = document.getElementById("greenSlider").value;
+        blue = document.getElementById("blueSlider").value;
+
         var data = new Uint8Array(4);
         data[0] = 2;
-        data[1] = document.getElementById("redSlider").value;
-        data[2] = document.getElementById("greenSlider").value;
-        data[3] = document.getElementById("blueSlider").value;
+        data[1] = red;
+        data[2] = green;
+        data[3] = blue;
 
-        document.getElementById("red_value_main").innerHTML=data[1];
-        document.getElementById("green_value_main").innerHTML=data[2];
-        document.getElementById("blue_value_main").innerHTML=data[3];
-
-        redSlider.defaultValue = data[1];
-        greenSlider.defaultValue = data[2];
-        blueSlider.defaultValue = data[3];
-
-        document.getElementById("red_value").innerHTML=data[1];
-        document.getElementById("green_value").innerHTML=data[2];
-        document.getElementById("blue_value").innerHTML=data[3];
+        document.getElementById("red_value_main").innerHTML=red;
+        document.getElementById("green_value_main").innerHTML=green;
+        document.getElementById("blue_value_main").innerHTML= blue;
 
         app.writeData(data);
 
@@ -262,9 +245,16 @@ var app = {
 
     uiOnLampOff: function() {
         console.log("uiOnLampOff");
-        var data = new Uint8Array(2);
-        data[0] = 0x0;
-        data[1] = 0x0;
+        var data = new Uint8Array(4);
+        data[0] = 2;
+        data[1] = 0;
+        data[2] = 0;
+        data[3] = 0;
+
+        document.getElementById("red_value_main").innerHTML=data[1];
+        document.getElementById("green_value_main").innerHTML=data[2];
+        document.getElementById("blue_value_main").innerHTML= data[3];
+
         app.writeData(data);
     },
 
