@@ -76,10 +76,22 @@ var app = {
         // Cordova is now ready --- do remaining Cordova setup.
         console.log("onDeviceReady");
 
-        redSlider.defaultValue = 255;
-        greenSlider.defaultValue = 0;
-        blueSlider.defaultValue = 0;
-        
+        red = document.getElementById("redSlider").value;
+        green = document.getElementById("greenSlider").value;
+        blue = document.getElementById("blueSlider").value;
+
+        document.getElementById("red_value_main").innerHTML=red;
+        document.getElementById("green_value_main").innerHTML=green;
+        document.getElementById("blue_value_main").innerHTML=blue;
+
+        redSlider.defaultValue = red;
+        greenSlider.defaultValue = green;
+        blueSlider.defaultValue = blue;
+
+        document.getElementById("red_value").innerHTML=red;
+        document.getElementById("green_value").innerHTML=green;
+        document.getElementById("blue_value").innerHTML=blue;
+
         // Button/Touch actions weren't setup in initialize()
         // because they will trigger Cordova specific actions
         refreshButton.ontouchstart = app.uiOnScan;
@@ -97,10 +109,7 @@ var app = {
         redSlider.ontouchmove = app.uiDisplayRedValue;
         greenSlider.ontouchmove = app.uiDisplayGreenValue;
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
-        
-       
 
-        setColor.ontouchstart = app.uiSetColor;
         fadeToColor.ontouchstart = app.uiFadeColor;
 
         colorToMain.ontouchstart = app.uiShowControlScreen;
@@ -157,23 +166,19 @@ var app = {
         document.getElementById("blue_value").innerHTML=document.getElementById("blueSlider").value;
     },
 
-    uiSetColor: function() {
-        var data = new Uint8Array(3);
-        data[0] = document.getElementById("redSlider").value;
-        data[1] = document.getElementById("greenSlider").value;
-        data[2] = document.getElementById("blueSlider").value;
-        app.writeData(data);
-    },
-
     uiFadeColor: function() {
-        console.log("fading");
-        
-        var data = new Uint8Array(2);
-        //ble.writeWithResponse(5);
-        data[0] = 0x7;
-        data[1] = document.getElementById("fade_value").value
+
+        var data = new Uint8Array(4);
+        data[0] = 2;
+        data[1] = document.getElementById("redSlider").value;
+        data[2] = document.getElementById("greenSlider").value;
+        data[3] = document.getElementById("blueSlider").value;
         app.writeData(data);
-       
+
+        document.getElementById("red_value_main").innerHTML=document.getElementById("redSlider").value;
+        document.getElementById("green_value_main").innerHTML=document.getElementById("greenSlider").value;
+        document.getElementById("blue_value_main").innerHTML=document.getElementById("blueSlider").value;
+
     },
 
     // Start scanning (also called at startup)
@@ -206,6 +211,8 @@ var app = {
 
         // Show the status
         app.uiShowProgressIndicator("Requesting connection to " + device);
+
+
     },
 
     // The user has hit the Disconnect button
@@ -288,15 +295,10 @@ var app = {
         app.uiShowControlScreen();
         app.uiSetStatus("Connected");
         // TODO: When connected you can start notifications
-        //ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.success);
+        //ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.readData);
+
 
     },
-    // TODO: Create a function to call everytime the notification is "successful"
-    // success: function() {
-    //     document.getElementById("counter").textContent = String("(" + counter + ")");
-    //     counter += 1;
-    //
-    // },
 
     bleOnDisconnect: function(reason) {
         console.log("bleOnDisconnect");
@@ -361,6 +363,17 @@ var app = {
         };
         ble.writeWithoutResponse(app.connectedPeripheral.id, SERVICE_UUID, WRITE_UUID, data.buffer, success, failure);
     },
+
+    readData: function(data) {
+        console.log("Read");
+
+        if (data[0] == 5) {
+            document.getElementById("on_amount").innerHTML=data[1];
+        }
+        else if (data[0] == 6) {
+            document.getElementById("off_amount").innerHTML=data[1];
+        }
+    }
 };
 
 // When this code is loaded the app.initialize() function is called
