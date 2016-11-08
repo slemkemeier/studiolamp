@@ -101,10 +101,12 @@ var app = {
         blueSlider.ontouchend = app.uiDisplayBlueValue;
 
         fadeToColor.ontouchstart = app.uiFadeColor;
-
         colorToMain.ontouchstart = app.uiShowControlScreen;
 
         // Timer Page
+        setOn.ontouchstart = app.uiSetOnTimer;
+        setOff.ontouchstart = app.uiSetOffTimer;
+        setFade.ontouchstart = app.uiSetFade;
         timerToMain.ontouchstart = app.uiShowControlScreen;
 
         // View Timers Page
@@ -125,6 +127,7 @@ var app = {
     // TODO: Add Functions to handle the callbacks (events) on the new controls
     // (Pay close attention to the syntax of functions)
     uiColorPage: function() {
+        console.log("in color page");
         mainControl.hidden = true;
         colorControl.hidden = false;
         deviceListScreen.hidden = true;
@@ -132,7 +135,33 @@ var app = {
         timerView.hidden=true;
 
     },
+
+    uiSetOnTimer: function() {
+        console.log("setting on timer");
+    },
+
+    uiSetOffTimer: function() {
+        console.log("setting off timer");
+
+    },
+
+    uiSetFade: function() {
+        console.log("setting fade");
+
+        var fade = document.getElementById("fade_value").value;
+
+        var data = new Uint8Array(2);
+        data[0] = 0x7;
+        data[1] = fade;
+
+        document.getElementById("fade_amount").innerHTML = fade;
+
+        console.log("fade is " + data);
+        app.writeData(data);
+    },
+
     uiTimerPage: function() {
+        console.log("in set timer page");
         mainControl.hidden = true;
         colorControl.hidden = true;
         deviceListScreen.hidden = true;
@@ -141,6 +170,7 @@ var app = {
     },
 
     uiViewTimerPage: function() {
+        console.log("in view timer page");
         mainControl.hidden = true;
         colorControl.hidden = true;
         deviceListScreen.hidden = true;

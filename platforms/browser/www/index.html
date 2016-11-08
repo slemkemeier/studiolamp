@@ -62,7 +62,7 @@
 <div id="colorControl">
     <br>
     <br>
-    <h1>Color Control</h1>
+    <h1>Colors Control</h1>
     <br>
     <label>
         Red
@@ -94,27 +94,29 @@
 <div id="timerControl">
     <h1>Timer Control</h1>
 
-    <form>
-        <label>
-            ON:
-            <input type="text" value="0" name="on_seconds">seconds
-        </label>
-        <br>
-        <br>
-        <label>
-            OFF:
-            <input type="text" value="0" name="off_seconds">seconds
-        </label>
-        <br>
-        <br>
-        <label>
-            FADE:
-            <input type="text" value="0" name="fade_seconds" id="fade_value">seconds
-        </label>
-        <br>
-        <input type="submit" value="Set">
 
-    </form>
+    <label>
+        ON:
+        <input type="text" value="0" id="on_seconds">seconds
+    </label>
+    <button id="setOn">SET</button>
+    <br>
+    <br>
+    <label>
+        OFF:
+        <input type="text" value="0" id="off_seconds">seconds
+    </label>
+    <button id="setOff">SET</button>
+    <br>
+    <br>
+    <label>
+        FADE:
+        <input type="text" value="0" id="fade_value">seconds
+    </label>
+    <button id="setFade">SET</button>
+    <br>
+
+
 
 
     <button id="timerToMain">Return to Main</button>
