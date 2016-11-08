@@ -8,6 +8,8 @@ var SERVICE_UUID = 'FE84';
 var WRITE_UUID = '2d30c083-f39f-4ce6-923f-3484ea480596';
 var READ_UUID = '2d30c082-f39f-4ce6-923f-3484ea480596';
 var counter = 1;
+var date = new Date();
+var time = date.getTime();
 
 //******   Utility functions (not used here yet) ******
 function stringToArrayBuffer(str) {
@@ -110,8 +112,8 @@ var app = {
         timerToMain.ontouchstart = app.uiShowControlScreen;
 
         // View Timers Page
-        //startOnTimer.ontouchstart = ;
-        //startOffTimer.ontouchstart = ;
+        startOnTimer.ontouchstart = app.uiStartTimer;
+        startOffTimer.ontouchstart = app.uiStartOffTimer;
         timerViewToMain.ontouchstart = app.uiShowControlScreen;
 
 
