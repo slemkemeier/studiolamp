@@ -78,10 +78,6 @@ var app = {
         // Cordova is now ready --- do remaining Cordova setup.
         console.log("onDeviceReady");
 
-        redSlider.defaultValue = 255;
-        greenSlider.defaultValue = 0;
-        blueSlider.defaultValue = 0;
-        
         // Button/Touch actions weren't setup in initialize()
         // because they will trigger Cordova specific actions
         refreshButton.ontouchstart = app.uiOnScan;
@@ -96,24 +92,31 @@ var app = {
 
 
         // Color Page
+        redSlider.defaultValue = 255;
+        greenSlider.defaultValue = 0;
+        blueSlider.defaultValue = 0;
         redSlider.ontouchmove = app.uiDisplayRedValue;
         greenSlider.ontouchmove = app.uiDisplayGreenValue;
         blueSlider.ontouchmove = app.uiDisplayBlueValue;
-        
-       
+        redSlider.ontouchend = app.uiDisplayRedValue;
+        greenSlider.ontouchend = app.uiDisplayGreenValue;
+        blueSlider.ontouchend = app.uiDisplayBlueValue;
 
-        setColor.ontouchstart = app.uiSetColor;
         fadeToColor.ontouchstart = app.uiFadeColor;
-
         colorToMain.ontouchstart = app.uiShowControlScreen;
 
         // Timer Page
+        setOn.ontouchstart = app.uiSetOnTimer;
+        setOff.ontouchstart = app.uiSetOffTimer;
+        setFade.ontouchstart = app.uiSetFade;
         timerToMain.ontouchstart = app.uiShowControlScreen;
 
         // View Timers Page
         startOnTimer.ontouchstart = app.uiStartTimer;
         startOffTimer.ontouchstart = app.uiStartOffTimer;
         timerViewToMain.ontouchstart = app.uiShowControlScreen;
+
+
 
 
         // Call the uiOnScan function to automatically start scanning
@@ -126,6 +129,7 @@ var app = {
     // TODO: Add Functions to handle the callbacks (events) on the new controls
     // (Pay close attention to the syntax of functions)
     uiColorPage: function() {
+        console.log("in color page");
         mainControl.hidden = true;
         colorControl.hidden = false;
         deviceListScreen.hidden = true;
@@ -133,7 +137,33 @@ var app = {
         timerView.hidden=true;
 
     },
+
+    uiSetOnTimer: function() {
+        console.log("setting on timer");
+    },
+
+    uiSetOffTimer: function() {
+        console.log("setting off timer");
+
+    },
+
+    uiSetFade: function() {
+        console.log("setting fade");
+
+        var fade = document.getElementById("fade_value").value;
+
+        var data = new Uint8Array(2);
+        data[0] = 0x7;
+        data[1] = fade;
+
+        document.getElementById("fade_amount").innerHTML = fade;
+
+        console.log("fade is " + data);
+        app.writeData(data);
+    },
+
     uiTimerPage: function() {
+        console.log("in set timer page");
         mainControl.hidden = true;
         colorControl.hidden = true;
         deviceListScreen.hidden = true;
@@ -142,6 +172,7 @@ var app = {
     },
 
     uiViewTimerPage: function() {
+        console.log("in view timer page");
         mainControl.hidden = true;
         colorControl.hidden = true;
         deviceListScreen.hidden = true;
@@ -159,42 +190,19 @@ var app = {
         document.getElementById("blue_value").innerHTML=document.getElementById("blueSlider").value;
     },
 
-    uiStartTimer: function(){
-        time = document.getElementById("onValue").value;
-        time--;
-        document.getElementById("onAmount").innerHTML = time;
-        document.getElementById("onValue").innerHTML = time;
-        setTimeout(uiStartTimer, 1000);
-    }
-    uiStartOffTimer: function(){
-        time = document.getElementById("offValue").value;
-        time--;
-        document.getElementById("offAmount").innerHTML = time;
-        document.getElementById("offValue").innerHTML = time;
-        setTimeout(uiStartTimer, 1000);
-    }
-    
-    uiSetColor: function() {
-        var data = new Uint8Array(3);
-        data[0] = document.getElementById("redSlider").value;
-        data[1] = document.getElementById("greenSlider").value;
-        data[2] = document.getElementById("blueSlider").value;
-        app.writeData(data);
-    },
-
     uiFadeColor: function() {
-        console.log("fading");
-        
-        var data = new Uint8Array(2);
-        //ble.writeWithResponse(5);
-        data[0] = 0x7;
-        data[1] = document.getElementById("fade_value").value;
+
+        var data = new Uint8Array(4);
+        data[0] = 2;
+        data[1] = document.getElementById("redSlider").value;
+        data[2] = document.getElementById("greenSlider").value;
+        data[3] = document.getElementById("blueSlider").value;
         app.writeData(data);
-        
-        
-        
-        
-       
+
+        document.getElementById("red_value_main").innerHTML=document.getElementById("redSlider").value;
+        document.getElementById("green_value_main").innerHTML=document.getElementById("greenSlider").value;
+        document.getElementById("blue_value_main").innerHTML=document.getElementById("blueSlider").value;
+
     },
 
     // Start scanning (also called at startup)
@@ -227,6 +235,8 @@ var app = {
 
         // Show the status
         app.uiShowProgressIndicator("Requesting connection to " + device);
+
+
     },
 
     // The user has hit the Disconnect button
@@ -245,9 +255,21 @@ var app = {
 
     uiOnLampOn: function() {
         console.log("uiOnLampOn");
-        var data = new Uint8Array(1);
-        //ble.writeWithResponse(5);
-        data[0] = 0x1;
+
+        red = document.getElementById("redSlider").value;
+        green = document.getElementById("greenSlider").value;
+        blue = document.getElementById("blueSlider").value;
+
+        var data = new Uint8Array(4);
+        data[0] = 2;
+        data[1] = red;
+        data[2] = green;
+        data[3] = blue;
+
+        document.getElementById("red_value_main").innerHTML=red;
+        document.getElementById("green_value_main").innerHTML=green;
+        document.getElementById("blue_value_main").innerHTML= blue;
+
         app.writeData(data);
 
         //var result = app.readData();
@@ -255,8 +277,16 @@ var app = {
 
     uiOnLampOff: function() {
         console.log("uiOnLampOff");
-        var data = new Uint8Array(1);
-        data[0] = 0x0;
+        var data = new Uint8Array(4);
+        data[0] = 2;
+        data[1] = 0;
+        data[2] = 0;
+        data[3] = 0;
+
+        document.getElementById("red_value_main").innerHTML=data[1];
+        document.getElementById("green_value_main").innerHTML=data[2];
+        document.getElementById("blue_value_main").innerHTML= data[3];
+
         app.writeData(data);
     },
 
@@ -308,22 +338,14 @@ var app = {
         app.connectedPeripheral = peripheral;
         app.uiShowControlScreen();
         app.uiSetStatus("Connected");
-        // TODO: When connected you can start notifications
-        //ble.startNotification(DEVICE_UUID, SERVICE_UUID, READ_UUID, app.success);
-
     },
-    // TODO: Create a function to call everytime the notification is "successful"
-    // success: function() {
-    //     document.getElementById("counter").textContent = String("(" + counter + ")");
-    //     counter += 1;
-    //
-    // },
 
     bleOnDisconnect: function(reason) {
         console.log("bleOnDisconnect");
         if (!reason) {
             reason = "Connection Lost";
         }
+        app.uiOnLampOff;
         app.uiHideProgressIndicator();
         app.uiShowDeviceListScreen();
         app.uiSetStatus(reason);
@@ -366,13 +388,10 @@ var app = {
         statusDiv.innerHTML = message;
     },
 
-    /*readData: function(){
-
-
-    }*/
 // Utility function for writing data
     writeData: function(data) {
         console.log("Write");
+        console.log(data);
         var success = function() {
             console.log("Write success");
         };
@@ -382,6 +401,17 @@ var app = {
         };
         ble.writeWithoutResponse(app.connectedPeripheral.id, SERVICE_UUID, WRITE_UUID, data.buffer, success, failure);
     },
+
+    // readData: function(data) {
+    //     console.log("Read");
+    //
+    //     if (data[0] == 5) {
+    //         document.getElementById("on_amount").innerHTML=data[1];
+    //     }
+    //     else if (data[0] == 6) {
+    //         document.getElementById("off_amount").innerHTML=data[1];
+    //     }
+    // }
 };
 
 // When this code is loaded the app.initialize() function is called

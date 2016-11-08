@@ -39,6 +39,10 @@
     <br />
     <br />
     <br />
+    <label>
+        Current Color: Red: <label id="red_value_main">0</label> Green: <label id="green_value_main">0</label> Blue: <label id="blue_value_main">0</label>
+    </label>
+    <br />
     <br />
     <button id="colorButton">Set Color</button>
     <button id="timerButton">Set Timer</button>
@@ -58,7 +62,7 @@
 <div id="colorControl">
     <br>
     <br>
-    <h1>Color Control</h1>
+    <h1>Colors Control</h1>
     <br>
     <label>
         Red
@@ -81,7 +85,6 @@
         <label id="blue_value">0</label>
     </label>
     <br>
-    <button id="setColor">Set Now!</button>
     <button id="fadeToColor">Fade to Color</button>
 
 
@@ -111,7 +114,28 @@
         <br>
         <input type="submit" value="Set">
 
-    </form>
+    <label>
+        ON:
+        <input type="text" value="0" id="on_seconds">seconds
+    </label>
+    <button id="setOn">SET</button>
+    <br>
+    <br>
+    <label>
+        OFF:
+        <input type="text" value="0" id="off_seconds">seconds
+    </label>
+    <button id="setOff">SET</button>
+    <br>
+    <br>
+    <label>
+        FADE:
+        <input type="text" value="0" id="fade_value">seconds
+    </label>
+    <button id="setFade">SET</button>
+    <br>
+
+
 
 
     <button id="timerToMain">Return to Main</button>
