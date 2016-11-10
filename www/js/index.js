@@ -158,7 +158,6 @@ var app = {
 
         document.getElementById("fade_amount").innerHTML = fade;
 
-        console.log("fade is " + data);
         app.writeData(data);
     },
 
