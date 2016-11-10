@@ -212,7 +212,7 @@ uiStartOnTimer: function() {
 uiGetOnTimer: function (){
     date = new Date();
     if (on_timer - ((date.getTime() - start_on) / 1000) > 0){
-        document.getElementById("on_amount").innerHTML = (on_timer - ((date.getTime() - start_on) / 1000));
+        document.getElementById("on_amount").innerHTML = Math.ceil(on_timer - ((date.getTime() - start_on) / 1000));
     }
     else {
         document.getElementById("on_amount").innerHTML = 0;
@@ -242,7 +242,7 @@ uiStartOffTimer: function() {
 uiGetOffTimer: function (){
     date = new Date();
     if (off_timer - ((date.getTime() - start_off) / 1000) > 0){
-        document.getElementById("off_amount").innerHTML = (off_timer - ((date.getTime() - start_off )/ 1000));
+        document.getElementById("off_amount").innerHTML = Math.ceil(off_timer - ((date.getTime() - start_off )/ 1000));
     }
     else {
         document.getElementById("off_amount").innerHTML = 0;
