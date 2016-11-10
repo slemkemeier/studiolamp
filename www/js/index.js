@@ -196,17 +196,17 @@ uiStartOnTimer: function() {
     
     console.log("starting on timer");
     var data = new Uint8Array(4);
- /*
+ 
     data[0] = 9;
     data[1] = document.getElementById("redSlider").value;
     data[2] = document.getElementById("greenSlider").value;
     data[3] = document.getElementById("blueSlider").value;
     app.writeData(data);
-*/
+
     
     var data1 = new Uint8Array(2);
-    data[0] = 5;
-    data[1] = 1;
+    data1[0] = 5;
+    data1[1] = 1;
     app.writeData(data1);
     
     date = new Date();
