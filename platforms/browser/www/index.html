@@ -94,25 +94,6 @@
 <div id="timerControl">
     <h1>Timer Control</h1>
 
-    <form>
-        <label>
-            ON:
-            <input type="text" value="0" name="on_seconds" id = "onValue">seconds
-        </label>
-        <br>
-        <br>
-        <label>
-            OFF:
-            <input type="text" value="0" name="off_seconds" id="offValue">seconds
-        </label>
-        <br>
-        <br>
-        <label>
-            FADE:
-            <input type="text" value="0" name="fade_seconds" id="fade_value">seconds
-        </label>
-        <br>
-        <input type="submit" value="Set">
 
     <label>
         ON:
@@ -145,9 +126,11 @@
 <div id="timerView">
     <h1>Timer View</h1>
     ON: <label id=on_amount>0</label>
+    <button id="getOnTimer">See On Timer </button>
     <button id="startOnTimer">Start</button>
     <br>
     OFF: <label id=off_amount>0</label>
+    <button id="getOffTimer">See Off Timer </button>
     <button id="startOffTimer">Start</button>
     <br>
     FADE: <label id=fade_amount>0</label>
