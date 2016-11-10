@@ -13,142 +13,129 @@
     <body>
         <script type="text/javascript" src="cordova.js"></script>
 
-<div id="deviceListScreen">
-    <h1>Devices</h1>
+        <div id="deviceListScreen">
+            <h1>Devices</h1>
 
-    <ul id="deviceList">
-        <li>Searching...</li>
-    </ul>
+            <ul id="deviceList">
+                <li>Searching...</li>
+            </ul>
 
-    <div>
-        <button id="refreshButton">Refresh</button>
-    </div>
-</div>
+            <div>
+                <button id="refreshButton">Refresh</button>
+            </div>
+        </div>
+        <!-- Main page -->
+        <div id="mainControl">
+            <h1>Main Page</h1>
 
+            <button id="onButton">On</button>
+            <br />
+            <button id="offButton">Off</button>
+            <br />
+            <button id="disconnectButton">Disconnect</button>
+            <br />
+            <br />
+            <br />
+            <label>
+                Current Color: Red: <label id="red_value_main">0</label> Green: <label id="green_value_main">0</label> Blue: <label id="blue_value_main">0</label>
+            </label>
+            <br />
+            <br />
+            <!-- Goes to Color Page -->
+            <button id="colorButton">Set Color</button>
+            <!-- Goes to Set Timer page -->
+            <button id="timerButton">Set Timer</button>
+            <!-- Goes to View Timers page -->
+            <button id="setTimerButton">View Timers</button>
+        </div>
 
+        <!-- Color Control page -->
+        <div id="colorControl">
+            <br>
+            <br>
+            <h1>Colors Control</h1>
+            <br>
+            <!-- RGB sliders and labels -->
+            <label>
+                Red
+                <br>
+                <input id="redSlider" type="range" min="0" max="255"/>
+                <label id="red_value">255</label>
+            </label>
+            <br>
+            <label>
+                Green
+                <br>
+                <input id="greenSlider" type="range" min="0" max="255"/>
+                <label id="green_value">0</label>
+            </label>
+            <br>
+            <label>
+                Blue
+                <br>
+                <input id="blueSlider" type="range" min="0" max="255"/>
+                <label id="blue_value">0</label>
+            </label>
+            <br>
+            <!-- Sends message to hardware to fade the color -->
+            <button id="fadeToColor">Fade to Color</button>
+            <!-- returns to main page -->
+            <button id="colorToMain">Return to Main</button>
+        </div>
 
+        <!-- Set Timer page -->
+        <div id="timerControl">
+            <h1>Timer Control</h1>
 
-<div id="mainControl">
-    <h1>Main Page</h1>
+            <label>
+                ON:
+                <input type="text" value="0" id="on_seconds">seconds
+            </label>
+            <button id="setOn">SET</button>
+            <br>
+            <br>
+            <label>
+                OFF:
+                <input type="text" value="0" id="off_seconds">seconds
+            </label>
+            <button id="setOff">SET</button>
+            <br>
+            <br>
+            <label>
+                FADE:
+                <input type="text" value="0" id="fade_value">seconds
+            </label>
+            <button id="setFade">SET</button>
+            <br>
+            <!-- return to main page -->
+            <button id="timerToMain">Return to Main</button>
 
-    <button id="onButton">On</button>
-    <br />
-    <button id="offButton">Off</button>
-    <br />
-    <button id="disconnectButton">Disconnect</button>
-    <br />
-    <br />
-    <br />
-    <label>
-        Current Color: Red: <label id="red_value_main">0</label> Green: <label id="green_value_main">0</label> Blue: <label id="blue_value_main">0</label>
-    </label>
-    <br />
-    <br />
-    <button id="colorButton">Set Color</button>
-    <button id="timerButton">Set Timer</button>
-    <button id="setTimerButton">View Timers</button>
-  <!--
-  <label>
-      Counter
-      <br>
-      <div id="counter">(0)</div>
-  </label> -->
+        </div>
 
+        <!-- View Timer page -->
+        <div id="timerView">
+            <h1>Timer View</h1>
+            ON: <label id=on_amount>0</label>
+            <button id="getOnTimer">See On Timer </button>
+            <button id="startOnTimer">Start</button>
+            <br>
+            OFF: <label id=off_amount>0</label>
+            <button id="getOffTimer">See Off Timer </button>
+            <button id="startOffTimer">Start</button>
+            <br>
+            FADE: <label id=fade_amount>0</label>
+            <br>
+            <!-- return to main page -->
+            <button id="timerViewToMain">Return to Main</button>
+        </div>
 
+        <div id="statusDiv"></div>
+        <div id="progress">
+          <p>Processing</p>
+        </div>
 
-</div>
-
-
-<div id="colorControl">
-    <br>
-    <br>
-    <h1>Colors Control</h1>
-    <br>
-    <label>
-        Red
-        <br>
-        <input id="redSlider" type="range" min="0" max="255"/>
-        <label id="red_value">255</label>
-    </label>
-    <br>
-    <label>
-        Green
-        <br>
-        <input id="greenSlider" type="range" min="0" max="255"/>
-        <label id="green_value">0</label>
-    </label>
-    <br>
-    <label>
-        Blue
-        <br>
-        <input id="blueSlider" type="range" min="0" max="255"/>
-        <label id="blue_value">0</label>
-    </label>
-    <br>
-    <button id="fadeToColor">Fade to Color</button>
-
-
-    <button id="colorToMain">Return to Main</button>
-</div>
-
-<div id="timerControl">
-    <h1>Timer Control</h1>
-
-
-    <label>
-        ON:
-        <input type="text" value="0" id="on_seconds">seconds
-    </label>
-    <button id="setOn">SET</button>
-    <br>
-    <br>
-    <label>
-        OFF:
-        <input type="text" value="0" id="off_seconds">seconds
-    </label>
-    <button id="setOff">SET</button>
-    <br>
-    <br>
-    <label>
-        FADE:
-        <input type="text" value="0" id="fade_value">seconds
-    </label>
-    <button id="setFade">SET</button>
-    <br>
-
-
-
-
-    <button id="timerToMain">Return to Main</button>
-
-</div>
-
-<div id="timerView">
-    <h1>Timer View</h1>
-    ON: <label id=on_amount>0</label>
-    <button id="getOnTimer">See On Timer </button>
-    <button id="startOnTimer">Start</button>
-    <br>
-    OFF: <label id=off_amount>0</label>
-    <button id="getOffTimer">See Off Timer </button>
-    <button id="startOffTimer">Start</button>
-    <br>
-    FADE: <label id=fade_amount>0</label>
-    <br>
-    <button id="timerViewToMain">Return to Main</button>
-
-</div>
-
-<div id="statusDiv"></div>
-
-
-
-<div id="progress">
-  <p>Processing</p>
-</div>
-
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
 
     </body>
 </html>
