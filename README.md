@@ -1,14 +1,5 @@
-# A Blank PhoneGap App
+# PhoneGap App for Lamp
 
-## Usage
-
-### PhoneGap CLI
-
-    $ phonegap create my-app --template blank
-
-### Desktop
-
-In your browser, open the file:
-
-    /www/index.html
+Assignment for Internet of Things class
+Use app to manipulate lamp colors and states
 
